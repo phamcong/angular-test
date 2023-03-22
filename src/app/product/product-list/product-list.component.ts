@@ -22,6 +22,7 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.products$.subscribe(console.log)
     this.productsGridOptions = {
       columnDefs: [
         { field: 'name', pinned: 'left' },

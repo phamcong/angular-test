@@ -1,36 +1,59 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { SelectItem } from "../../../shared/models/common.model";
-import { Observable } from "rxjs";
-import { ProductStore } from "../product.store";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { SelectItem } from '../../../shared/models/common.model';
+import { Observable } from 'rxjs';
+import { ProductStore } from '../product.store';
 
 @Component({
   selector: 'app-product-filter',
   templateUrl: './product-filter.component.html',
-  styleUrls: ['./product-filter.component.scss']
+  styleUrls: ['./product-filter.component.scss'],
 })
-export class ProductFilterComponent {
+export class ProductFilterComponent implements OnInit {
   filterForm: FormGroup;
   categoryOptions = [
     { label: 'Men', value: 'men' },
     { label: 'Women', value: 'women' },
   ];
 
-  subCategoryOptions$: Observable<SelectItem[]> = this.productStore.subCategoryOptions$;
+  subCategoryOptions$: Observable<SelectItem[]> =
+    this.productStore.subCategoryOptions$;
   countryOptions$: Observable<SelectItem[]> = this.productStore.countryOptions$;
 
-  constructor(private readonly fb: FormBuilder, private  readonly productStore: ProductStore) {
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly productStore: ProductStore
+  ) {
     this.filterForm = this.fb.group({
       searchText: new FormControl(''),
       categories: new FormControl(),
       subCategories: new FormControl(),
-      countries: new FormControl()
-    })
+      countries: new FormControl(),
+      isSubmit: new FormControl(false),
+    });
   }
 
+  ngOnInit(): void {}
+
   onSubmitFilter() {
+    this.filterForm.controls['isSubmit'].setValue(true);
     this.productStore.patchState({
-      productFilter: this.filterForm.value
-    })
+      productFilter: this.filterForm.value,
+    });
+  }
+
+  changeSubCate() {
+    this.filterForm.controls['isSubmit'].setValue(false);
+    this.productStore.patchState({
+      productFilter: this.filterForm.value,
+    });
+  }
+
+  resetFilter() {
+    this.filterForm.reset();
+    this.filterForm.controls['isSubmit'].setValue(true);
+    this.productStore.patchState({
+      productFilter: this.filterForm.value,
+    });
   }
 }
