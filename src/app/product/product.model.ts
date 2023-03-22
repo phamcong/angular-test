@@ -19,5 +19,5 @@ export interface ProductFilter {
   categories?: string[];
   subCategories?: string[];
   countries?: string[];
-  searchText?: string
+  searchText?: string;
 }

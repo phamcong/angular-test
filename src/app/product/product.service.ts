@@ -13,4 +13,5 @@ export class ProductService {
   getWomenProducts(): Observable<ProductItem[]> {
     return of(womenProducts).pipe(delay(2000));
   }
+
 }

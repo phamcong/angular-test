@@ -5,41 +5,95 @@
   <mat-card-content class="py-2" style="height: 350px" [formGroup]="filterForm">
     <mat-form-field appearance="fill" class="w-100">
       <mat-label>Categories</mat-label>
-      <mat-select formControlName="categories" multiple *ngIf="filterForm.get('categories') as categoriesFCtrl">
+      <mat-select
+        formControlName="categories"
+        multiple
+        *ngIf="filterForm.get('categories') as categoriesFCtrl"
+      >
         <mat-select-trigger>
-          <ng-container [ngTemplateOutlet]="selectValueRenderer" [ngTemplateOutletContext]="{ formCtrl: categoriesFCtrl }"></ng-container>
+          <ng-container
+            [ngTemplateOutlet]="selectValueRenderer"
+            [ngTemplateOutletContext]="{ formCtrl: categoriesFCtrl }"
+          ></ng-container>
         </mat-select-trigger>
-        <mat-option *ngFor="let option of categoryOptions" [value]="option.value">{{ option.label }}</mat-option>
+        <mat-option
+          *ngFor="let option of categoryOptions"
+          [value]="option.value"
+          >{{ option.label }}</mat-option
+        >
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">
       <mat-label>Sub categories</mat-label>
-      <mat-select formControlName="subCategories" multiple *ngIf="filterForm.get('subCategories') as subCategoriesFCtrl">
+      <mat-select
+        formControlName="subCategories"
+        multiple
+        *ngIf="filterForm.get('subCategories') as subCategoriesFCtrl"
+        (selectionChange)="subCategoriesChanged()"
+      >
         <mat-select-trigger>
-          <ng-container [ngTemplateOutlet]="selectValueRenderer" [ngTemplateOutletContext]="{ formCtrl: subCategoriesFCtrl }"></ng-container>
+          <ng-container
+            [ngTemplateOutlet]="selectValueRenderer"
+            [ngTemplateOutletContext]="{ formCtrl: subCategoriesFCtrl }"
+          ></ng-container>
         </mat-select-trigger>
-        <mat-option *ngFor="let option of (subCategoryOptions$ | async) || []" [value]="option.value">{{ option.label }}</mat-option>
+        <mat-option
+          *ngFor="let option of (subCategoryOptions$ | async) || []"
+          [value]="option.value"
+          >{{ option.label }}</mat-option
+        >
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-100">
       <mat-label>Countries</mat-label>
-      <mat-select formControlName="countries" multiple *ngIf="filterForm.get('countries') as countriesFCtrl">
+      <mat-select
+        formControlName="countries"
+        multiple
+        *ngIf="filterForm.get('countries') as countriesFCtrl"
+        (selectionChange)="countriesChanged()"
+      >
         <mat-select-trigger>
-          <ng-container [ngTemplateOutlet]="selectValueRenderer" [ngTemplateOutletContext]="{ formCtrl: countriesFCtrl }"></ng-container>
+          <ng-container
+            [ngTemplateOutlet]="selectValueRenderer"
+            [ngTemplateOutletContext]="{ formCtrl: countriesFCtrl }"
+          ></ng-container>
         </mat-select-trigger>
-        <mat-option *ngFor="let option of (countryOptions$ | async) || []" [value]="option.value">{{ option.label }}</mat-option>
+        <mat-option
+          *ngFor="let option of (countryOptions$ | async) || []"
+          [value]="option.value"
+          >{{ option.label }}</mat-option
+        >
       </mat-select>
     </mat-form-field>
   </mat-card-content>
-  <mat-card-actions class="d-flex justify-content-center">
-    <button mat-button mat-raised-button color="primary" (click)="onSubmitFilter()">Submit</button>
+  <mat-card-actions class="d-flex justify-content-around ">
+    <button
+      mat-button
+      mat-raised-button
+      color="primary"
+      (click)="onSubmitFilter()"
+    >
+      Submit
+    </button>
+    <button
+      mat-button
+      mat-raised-button
+      color="primary"
+      (click)="resetFilter()"
+    >
+      Reset
+    </button>
   </mat-card-actions>
 </mat-card>
 <ng-template #selectValueRenderer let-formCtrl="formCtrl">
   {{formCtrl.value?.[0] || ''}}
-  <span *ngIf="(formCtrl.value?.length || 0) > 1" class="example-additional-selection">
-        (+{{(formCtrl.value?.length || 0) - 1}} {{formCtrl.value?.length === 2 ? 'other' : 'others'}})
+  <span
+    *ngIf="(formCtrl.value?.length || 0) > 1"
+    class="example-additional-selection"
+  >
+    (+{{ (formCtrl.value?.length || 0) - 1 }}
+    {{ formCtrl.value?.length === 2 ? "other" : "others" }})
   </span>
 </ng-template>
