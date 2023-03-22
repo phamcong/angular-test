@@ -20,5 +20,4 @@ export interface ProductFilter {
   subCategories?: string[];
   countries?: string[];
   searchText?: string;
-  isSubmit?: boolean;
 }

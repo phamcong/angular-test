@@ -30,7 +30,7 @@
         formControlName="subCategories"
         multiple
         *ngIf="filterForm.get('subCategories') as subCategoriesFCtrl"
-        (selectionChange)="changeSubCate()"
+        (selectionChange)="subCategoriesChanged()"
       >
         <mat-select-trigger>
           <ng-container
@@ -52,6 +52,7 @@
         formControlName="countries"
         multiple
         *ngIf="filterForm.get('countries') as countriesFCtrl"
+        (selectionChange)="countriesChanged()"
       >
         <mat-select-trigger>
           <ng-container

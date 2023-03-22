@@ -29,29 +29,31 @@ export class ProductFilterComponent implements OnInit {
       categories: new FormControl(),
       subCategories: new FormControl(),
       countries: new FormControl(),
-      isSubmit: new FormControl(false),
     });
   }
 
   ngOnInit(): void {}
 
   onSubmitFilter() {
-    this.filterForm.controls['isSubmit'].setValue(true);
     this.productStore.patchState({
       productFilter: this.filterForm.value,
     });
   }
 
-  changeSubCate() {
-    this.filterForm.controls['isSubmit'].setValue(false);
+  subCategoriesChanged() {
     this.productStore.patchState({
-      productFilter: this.filterForm.value,
+      isChangeCountry: Math.random(),
+    });
+  }
+
+  countriesChanged() {
+    this.productStore.patchState({
+      isChangeSubCategory: Math.random(),
     });
   }
 
   resetFilter() {
     this.filterForm.reset();
-    this.filterForm.controls['isSubmit'].setValue(true);
     this.productStore.patchState({
       productFilter: this.filterForm.value,
     });
