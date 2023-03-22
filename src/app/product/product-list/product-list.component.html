@@ -1,0 +1,10 @@
+<mat-card class="h-100">
+  <mat-card-header>
+    <mat-card-title>Products</mat-card-title>
+  </mat-card-header>
+  <mat-card-content style="height: 550px" class="p-2">
+    <app-advanced-grid [rowData]="(products$ | async) || []"
+                       [gridOptions]="productsGridOptions">
+    </app-advanced-grid>
+  </mat-card-content>
+</mat-card>
